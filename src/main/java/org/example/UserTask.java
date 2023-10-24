@@ -3,8 +3,22 @@ package org.example;
 import java.util.HashMap;
 
 public class UserTask {
-    private String employer;
-    private String employee;
-    private String task;
+    private User creator;
+    private User responsible;
+    private final String Description;
+    private String Status;
 
+    public UserTask(User creator, User responsible, String Description){
+        this.creator = creator;
+        this.responsible = responsible;
+        this.Description = Description;
+        this.Status = "в ожидании";
+    }
+    public User GetResponsible(){ return responsible; }
+    public String GetDetails(){
+        return Description;
+    }
+    public void ChangeStatus(String newStatus){
+        this.Status = newStatus;
+    }
 }

@@ -1,6 +1,9 @@
 package org.example;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,17 +15,26 @@ public class BotCommandHandler {
         commandMap = new HashMap<>();
         commandMap.put("/start", new StartCommand());
         commandMap.put("/help", new HelpCommand());
-        commandMap.put("/createtask", new CreateTaskCommand());
-        // Добавьте другие команды и соответствующие им классы
+        commandMap.put("/create_task", new CreateTaskCommand());
+        commandMap.put("/my_task", new MyTaskCommand());
     }
 
-    public void processCommand(String command, String chatId, TelegramLongPollingBot bot) {
+    public void processCommand(Update update, EchoJavaTelegramBot bot, UserRepository userRepository) {
+        String userMessage = update.getMessage().getText();
+        String[] parts = userMessage.split(" ", 2);
+        String command = parts[0];
         BotCommand botCommand = commandMap.get(command);
         if (botCommand != null) {
-            botCommand.ChatIdBot(chatId, bot);
-            botCommand.execute();
+            botCommand.execute(update, bot, userRepository);
         } else {
-            System.out.println("Неизвестная команда. Введите /help для получения справки.");
+            SendMessage message = new SendMessage();
+            message.setChatId(update.getMessage().getChatId().toString());
+            message.setText("Неизвестная команда. Введите /help для получения справки.");
+            try {
+                bot.execute(message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

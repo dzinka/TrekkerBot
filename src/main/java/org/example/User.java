@@ -1,15 +1,24 @@
 package org.example;
 
 public class User {
-    private String id;
-    private String name;
+    private String chatId;
 
-    public User(String id_, String name_){
-        this.id = id_;
-        this.name = name_;
+    private String userId;
+    private String userName;
+
+    public User(String userId, String userName, String chatId){
+        this.userId = userId;
+        this.userName = userName;
+        this.chatId = chatId;
     }
 
-    public String GetId(){
-        return id;
+    public String GetChatId(){
+        return chatId;
+    }
+    public String GetUserId(){
+        return userId;
+    }
+    public String GetUserName(){
+        return userName;
     }
 }
