@@ -20,6 +20,7 @@ public class UserRepository {
             return;
         User newUser = new User(userId, userName, chatId);
         dbUser.put(userId, newUser);
+        dbUser.computeIfAbsent(userId, (k)->new User(userId, userName, chatId));
         dbUserNameID.put(userName, userId);
     }
     public User GetUser(String userId)
