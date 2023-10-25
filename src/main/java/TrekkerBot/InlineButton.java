@@ -1,4 +1,4 @@
-package org.example;
+package TrekkerBot;
 
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 

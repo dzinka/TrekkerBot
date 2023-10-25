@@ -1,4 +1,4 @@
-package org.example;
+package TrekkerBot;
 
 public class User {
     private String chatId;

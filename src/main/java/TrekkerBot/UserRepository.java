@@ -1,4 +1,4 @@
-package org.example;
+package TrekkerBot;
 
 import java.util.HashMap;
 
