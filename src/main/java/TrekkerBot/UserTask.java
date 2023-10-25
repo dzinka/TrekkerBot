@@ -1,6 +1,4 @@
-package org.example;
-
-import java.util.HashMap;
+package TrekkerBot;
 
 public class UserTask {
     private User creator;
@@ -22,3 +20,4 @@ public class UserTask {
         this.Status = newStatus;
     }
 }
+//Hello
