@@ -13,7 +13,6 @@ public class StartCommand implements BotCommand {
         @Override
         public void execute(Update update, EchoJavaTelegramBot bot, UserRepository userRepository) {
                 String chatId = update.getMessage().getChatId().toString();
-                System.out.println(chatId);
                 SendMessage message = new SendMessage();
                 message.setChatId(chatId);
                 message.setText("Привет! Я TrekkerBot, могу помочь тебе " +
