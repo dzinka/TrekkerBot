@@ -1,20 +1,25 @@
 package TrekkerBot;
 
+import botCommand.BotCommandHandler;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
+import org.telegram.telegrambots.meta.api.objects.polls.Poll;
+import org.telegram.telegrambots.meta.api.objects.polls.PollOption;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
-//import org.springframework.stereotype.Component;
+import user.UserRepository;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 //@Component
@@ -22,6 +27,7 @@ public class EchoJavaTelegramBot extends TelegramLongPollingBot {
     final String botName;
     final String botToken;
     private UserRepository userRepository = new UserRepository();
+
     public EchoJavaTelegramBot(String botName, String botToken) {
         this.botName = botName;
         this.botToken = botToken;
@@ -30,20 +36,19 @@ public class EchoJavaTelegramBot extends TelegramLongPollingBot {
         listofCommands.add(new BotCommand("/help", "information"));
         listofCommands.add(new BotCommand("/create_task", "get a welcome message"));
         listofCommands.add(new BotCommand("/my_task", "information"));
-        try{
-            this.execute(new SetMyCommands(listofCommands, new BotCommandScopeDefault(),null));
-        }
-        catch (TelegramApiException e){
+        try {
+            this.execute(new SetMyCommands(listofCommands, new BotCommandScopeDefault(), null));
+        } catch (TelegramApiException e) {
             //log.error("Error");
         }
         //listofCommands.add(new BotCommand("/help", "information"));
-        try{
-            this.execute(new SetMyCommands(listofCommands, new BotCommandScopeDefault(),null));
-        }
-        catch (TelegramApiException e){
+        try {
+            this.execute(new SetMyCommands(listofCommands, new BotCommandScopeDefault(), null));
+        } catch (TelegramApiException e) {
             //log.error("Error");
         }
     }
+
     @Override
     public String getBotUsername() {
         return this.botName;
@@ -64,13 +69,52 @@ public class EchoJavaTelegramBot extends TelegramLongPollingBot {
             String chatId = update.getMessage().getChatId().toString();
             String userName = update.getMessage().getFrom().getUserName();
             userRepository.createUser(userId, userName, chatId);
+            /*
+            // Создаем кнопку для формы
+            // Создаем кнопки для первой строки клавиатуры
+            KeyboardButton button1 = new KeyboardButton();
+            button1.setText("Кнопка 1");
+            button1.setRequestContact(false);
+            button1.setRequestLocation(false);
+
+            KeyboardButton button2 = new KeyboardButton();
+            button2.setText("Кнопка 2");
+            button2.setRequestContact(false);
+            button2.setRequestLocation(false);
+
+            // Создаем первую строку клавиатуры
+            List<KeyboardButton> row1 = new ArrayList<>();
+            row1.add(button1);
+            row1.add(button2);
+
+            // Создаем список строк клавиатуры
+            List<KeyboardRow> keyboard = new ArrayList<>();
+            keyboard.add(new KeyboardRow(row1));
+
+
+            // Создаем разметку для клавиатуры
+            ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+            replyKeyboardMarkup.setOneTimeKeyboard(false);
+            replyKeyboardMarkup.setResizeKeyboard(true);
+            replyKeyboardMarkup.setSelective(false);
+            replyKeyboardMarkup.setKeyboard(keyboard);
+            // Создаем сообщение с формой
+            SendMessage message = new SendMessage();
+            message.setChatId(chatId);
+            //message.setText("Введите текст:");
+            message.setReplyMarkup(replyKeyboardMarkup);
+
+            try {
+                execute(message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }*/
 
             if (messageText.startsWith("/")) {
                 BotCommandHandler botHandler = new BotCommandHandler();
                 String userMessage = update.getMessage().getText();
                 botHandler.processCommand(update, this, userRepository);
-            }
-            else if (update.hasCallbackQuery()){
+            } else if (update.hasCallbackQuery()) {
                 String callbackData = update.getCallbackQuery().getData();
                 // Проверяем, какая кнопка была нажата
                 if (callbackData.equals("Кнопка 1")) {
@@ -79,8 +123,7 @@ public class EchoJavaTelegramBot extends TelegramLongPollingBot {
                     sendResponseMessage(update.getCallbackQuery().getMessage().getChatId().toString(), "Вы нажали кнопку 2");
                 }
 
-            }
-            else{
+            } else {
                 String chat_id = update.getMessage().getChatId().toString();
                 sendInlineKeyboard(chat_id);
 
@@ -97,17 +140,18 @@ public class EchoJavaTelegramBot extends TelegramLongPollingBot {
 
         }
     }
+
     private void sendResponseMessage(String chatId, String text) {
         SendMessage responseMessage = new SendMessage();
         responseMessage.setChatId(chatId);
         responseMessage.setText(text);
 
 
-        ReplyKeyboardMarkup keyboardMarkup= new ReplyKeyboardMarkup();
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 
         List<KeyboardRow> keyboardRows = new ArrayList<>();
 
-        KeyboardRow row  = new KeyboardRow();
+        KeyboardRow row = new KeyboardRow();
 
         row.add("/start");
         row.add("/help");
@@ -131,8 +175,7 @@ public class EchoJavaTelegramBot extends TelegramLongPollingBot {
     }
 
 
-
-        public void sendInlineKeyboard(String chatId) {
+    public void sendInlineKeyboard(String chatId) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText("Выберите действие:");

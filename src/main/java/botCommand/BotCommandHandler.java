@@ -1,8 +1,10 @@
-package TrekkerBot;
+package botCommand;
 
+import TrekkerBot.*;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import user.UserRepository;
 
 import java.util.HashMap;
 import java.util.Map;

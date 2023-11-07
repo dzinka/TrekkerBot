@@ -1,4 +1,6 @@
-package TrekkerBot;
+package user.task;
+
+import user.User;
 
 public class UserTask {
     private User creator;
@@ -20,4 +22,4 @@ public class UserTask {
         this.Status = newStatus;
     }
 }
-//Hello
+

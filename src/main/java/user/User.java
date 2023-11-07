@@ -1,4 +1,4 @@
-package TrekkerBot;
+package user;
 
 public class User {
     private String chatId;

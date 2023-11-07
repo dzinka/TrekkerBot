@@ -1,16 +1,22 @@
-package TrekkerBot;
+package user;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import user.task.UserTask;
+
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserRepository {
 
     private HashMap<String, User> dbUser;
     private HashMap<String, String> dbUserNameID;
-    private HashMap<String, UserTask> dbTask;
+    private Multimap<String, UserTask> dbTask;
     public UserRepository()
     {
         dbUser = new HashMap<>();
-        dbTask = new HashMap<>();
+        dbTask = ArrayListMultimap.create();
         dbUserNameID = new HashMap<>();
     }
 
@@ -20,7 +26,7 @@ public class UserRepository {
             return;
         User newUser = new User(userId, userName, chatId);
         dbUser.put(userId, newUser);
-        dbUser.computeIfAbsent(userId, (k)->new User(userId, userName, chatId));
+        //dbUser.computeIfAbsent(userId, (k)->new User(userId, userName, chatId));
         dbUserNameID.put(userName, userId);
     }
     public User GetUser(String userId)
@@ -37,7 +43,7 @@ public class UserRepository {
     {
         dbTask.put(newUserTask.GetResponsible().GetUserId(), newUserTask);
     }
-    public UserTask GetUserTask(User user)
+    public Collection<UserTask> GetUserTask(User user)
     {
         return dbTask.get(user.GetUserId());
     }

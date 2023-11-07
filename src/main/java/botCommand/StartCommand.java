@@ -1,5 +1,7 @@
-package TrekkerBot;
+package botCommand;
 
+import TrekkerBot.EchoJavaTelegramBot;
+import user.UserRepository;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -15,9 +17,7 @@ public class StartCommand implements BotCommand {
                 String chatId = update.getMessage().getChatId().toString();
                 SendMessage message = new SendMessage();
                 message.setChatId(chatId);
-                message.setText("Привет! Я TrekkerBot, могу помочь тебе " +
-                        "создать новые задачи. Назначай ответственных,  " +
-                        "ставь дедлайны. /help - если нужна помощь " );
+                message.setText("Привет!" );
                 try {
                         // Отправка сообщения
                         bot.execute(message);
