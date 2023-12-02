@@ -8,8 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class HelpCommand implements BotCommand {
-    private String chatId;
-    private TelegramLongPollingBot bot;
+
     @Override
     public void execute(Update update, EchoJavaTelegramBot bot, UserRepository userRepository) {
         // Логика для команды /help
@@ -19,7 +18,6 @@ public class HelpCommand implements BotCommand {
                 "" +
                 "\n/createtask - добавление новой задачи");
         try {
-            // Отправка сообщения
             bot.execute(message);
         } catch (TelegramApiException e) {
             e.printStackTrace();

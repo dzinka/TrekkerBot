@@ -14,6 +14,9 @@ public class UserTask {
         this.Description = Description;
         this.Status = "в ожидании";
     }
+    public User GetCreator(){
+        return creator;
+    }
     public User GetResponsible(){ return responsible; }
     public String GetDetails(){
         return Description;

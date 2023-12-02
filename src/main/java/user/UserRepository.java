@@ -13,10 +13,12 @@ public class UserRepository {
     private HashMap<String, User> dbUser;
     private HashMap<String, String> dbUserNameID;
     private Multimap<String, UserTask> dbTask;
+    private Multimap<String, UserTask> dbTaskToResponsible;
     public UserRepository()
     {
         dbUser = new HashMap<>();
         dbTask = ArrayListMultimap.create();
+        dbTaskToResponsible = ArrayListMultimap.create();
         dbUserNameID = new HashMap<>();
     }
 
@@ -42,10 +44,13 @@ public class UserRepository {
     public void CreateUserTask(UserTask newUserTask)
     {
         dbTask.put(newUserTask.GetResponsible().GetUserId(), newUserTask);
+
+        dbTaskToResponsible.put(newUserTask.GetCreator().GetUserId(), newUserTask);
     }
     public Collection<UserTask> GetUserTask(User user)
     {
         return dbTask.get(user.GetUserId());
     }
+    public Collection<UserTask> GetUserCreatorTask(User user){ return dbTaskToResponsible.get(user.GetUserId());}
 
 }
