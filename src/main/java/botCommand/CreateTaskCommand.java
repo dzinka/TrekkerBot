@@ -10,9 +10,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class CreateTaskCommand implements BotCommand {
-    private String chatId;
-
-    private TelegramLongPollingBot bot;
     @Override
     public void execute(Update update, EchoJavaTelegramBot bot, UserRepository userRepository) {
         String messageText = update.getMessage().getText();

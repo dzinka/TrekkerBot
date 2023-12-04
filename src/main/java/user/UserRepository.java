@@ -1,5 +1,6 @@
 package user;
 
+import callback.CallbackHandler;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import user.task.UserTask;
@@ -28,7 +29,6 @@ public class UserRepository {
             return;
         User newUser = new User(userId, userName, chatId);
         dbUser.put(userId, newUser);
-        //dbUser.computeIfAbsent(userId, (k)->new User(userId, userName, chatId));
         dbUserNameID.put(userName, userId);
     }
     public User GetUser(String userId)
@@ -52,5 +52,5 @@ public class UserRepository {
         return dbTask.get(user.GetUserId());
     }
     public Collection<UserTask> GetUserCreatorTask(User user){ return dbTaskToResponsible.get(user.GetUserId());}
-
+    
 }

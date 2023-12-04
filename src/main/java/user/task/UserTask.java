@@ -6,13 +6,13 @@ public class UserTask {
     private User creator;
     private User responsible;
     private final String Description;
-    private String Status;
+    private UserTaskState State;
 
     public UserTask(User creator, User responsible, String Description){
         this.creator = creator;
         this.responsible = responsible;
         this.Description = Description;
-        this.Status = "в ожидании";
+        this.State = UserTaskState.CREATED;
     }
     public User GetCreator(){
         return creator;
@@ -22,7 +22,7 @@ public class UserTask {
         return Description;
     }
     public void ChangeStatus(String newStatus){
-        this.Status = newStatus;
+        this.State.NewState(newStatus); 
     }
 }
 
