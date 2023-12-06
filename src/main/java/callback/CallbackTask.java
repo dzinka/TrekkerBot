@@ -26,11 +26,12 @@ public class CallbackTask implements BotCallback {
         buttonLabels.add("дедлайн");
         buttonLabels.add("статус");
         buttonLabels.add("выполняющий");
+        buttonLabels.add("описание");
         for (String label : buttonLabels) {
             ArrayList<InlineKeyboardButton> rowInline = new ArrayList<>();
             InlineKeyboardButton button = new InlineKeyboardButton();
             button.setText(label);
-            button.setCallbackData("action");
+            button.setCallbackData("action " + label);
             rowInline.add(button);
             rowsInline.add(rowInline);
         }

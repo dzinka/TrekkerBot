@@ -1,6 +1,7 @@
 package botCommand;
 
 import TrekkerBot.EchoJavaTelegramBot;
+import TrekkerBot.SendResponse;
 import user.UserRepository;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -17,11 +18,8 @@ public class StartCommand implements BotCommand {
                 SendMessage message = new SendMessage();
                 message.setChatId(chatId);
                 message.setText("Привет!" );
-                try {
-                        bot.execute(message);
-                } catch (TelegramApiException e) {
-                        e.printStackTrace();
-                }
+                SendResponse send = new SendResponse();
+                send.send(message, bot);
         }
 
 }

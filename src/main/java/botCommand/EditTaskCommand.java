@@ -28,7 +28,7 @@ public class EditTaskCommand implements BotCommand{
             ArrayList<InlineKeyboardButton> rowInline = new ArrayList<>();
             InlineKeyboardButton button = new InlineKeyboardButton();
             button.setText(label);
-            button.setCallbackData("task");
+            button.setCallbackData("task " + label);
             rowInline.add(button);
             rowsInline.add(rowInline);
         }

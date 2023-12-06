@@ -5,8 +5,10 @@ import user.User;
 public class UserTask {
     private User creator;
     private User responsible;
-    private final String Description;
+    private String Description;
     private UserTaskState State;
+
+    private String Dedline;
 
     public UserTask(User creator, User responsible, String Description){
         this.creator = creator;
@@ -24,5 +26,9 @@ public class UserTask {
     public void ChangeStatus(String newStatus){
         this.State.NewState(newStatus); 
     }
+    public void ChangeDescription(String data){
+        this.Description = data;
+    }
+
 }
 

@@ -32,11 +32,8 @@ public class BotCommandHandler {
             SendMessage message = new SendMessage();
             message.setChatId(update.getMessage().getChatId().toString());
             message.setText("Неизвестная команда. Введите /help для получения справки.");
-            try {
-                bot.execute(message);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
+            SendResponse send = new SendResponse();
+            send.send(message, bot);
         }
     }
 }

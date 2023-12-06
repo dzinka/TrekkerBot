@@ -1,13 +1,13 @@
 package user;
 
-import callback.CallbackHandler;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import user.session.UserSession;
 import user.task.UserTask;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 public class UserRepository {
 
@@ -15,12 +15,18 @@ public class UserRepository {
     private HashMap<String, String> dbUserNameID;
     private Multimap<String, UserTask> dbTask;
     private Multimap<String, UserTask> dbTaskToResponsible;
+    private Map<String, UserSession> sessions;
     public UserRepository()
     {
         dbUser = new HashMap<>();
         dbTask = ArrayListMultimap.create();
         dbTaskToResponsible = ArrayListMultimap.create();
         dbUserNameID = new HashMap<>();
+        sessions = new HashMap<>();
+    }
+
+    public UserSession getUserSession(String userId){
+        return  sessions.get(userId);
     }
 
     public void createUser(String userId, String userName, String chatId)
@@ -30,6 +36,7 @@ public class UserRepository {
         User newUser = new User(userId, userName, chatId);
         dbUser.put(userId, newUser);
         dbUserNameID.put(userName, userId);
+        sessions.put(userId, new UserSession(userId));
     }
     public User GetUser(String userId)
     {
@@ -52,5 +59,5 @@ public class UserRepository {
         return dbTask.get(user.GetUserId());
     }
     public Collection<UserTask> GetUserCreatorTask(User user){ return dbTaskToResponsible.get(user.GetUserId());}
-    
+
 }

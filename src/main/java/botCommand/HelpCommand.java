@@ -1,6 +1,7 @@
 package botCommand;
 
 import TrekkerBot.EchoJavaTelegramBot;
+import TrekkerBot.SendResponse;
 import user.UserRepository;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -11,16 +12,12 @@ public class HelpCommand implements BotCommand {
 
     @Override
     public void execute(Update update, EchoJavaTelegramBot bot, UserRepository userRepository) {
-        // Логика для команды /help
         SendMessage message = new SendMessage();
         message.setChatId(update.getMessage().getChatId().toString());// добавляем параметр в объект сообщение
-        message.setText("" +
-                "" +
-                "\n/createtask - добавление новой задачи");
-        try {
-            bot.execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+        message.setText("/create_task - добавление новой задачи\n"+
+                "/my_task - вывод ваших задача\n" +
+                "/edit_task - редактирование зада, вами созданных\n");
+        SendResponse send = new SendResponse();
+        send.send(message, bot);
     }
 }

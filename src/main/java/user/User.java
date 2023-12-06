@@ -1,6 +1,5 @@
 package user;
 
-import callback.CallbackHandler;
 
 public class User {
     private String chatId;
@@ -8,11 +7,7 @@ public class User {
     private String userId;
     private String userName;
 
-    private CallbackHandler userCallbackState;
 
-    public void CreateUserCallbackState(){
-        userCallbackState = new CallbackHandler();
-    }
 
     public User(String userId, String userName, String chatId){
         this.userId = userId;

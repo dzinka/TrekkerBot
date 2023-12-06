@@ -1,6 +1,7 @@
 package botCommand;
 
 import TrekkerBot.EchoJavaTelegramBot;
+import TrekkerBot.SendResponse;
 import user.User;
 import user.UserRepository;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -22,22 +23,13 @@ public class MyTaskCommand implements BotCommand {
         if (userTasks.isEmpty()){
             answer = " У вас нет задач";
             message.setText(answer);
-            try {
-                bot.execute(message);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-            return;
         }
         for (UserTask temp : userTasks)
         {
             answer = answer + temp.GetDetails() + " ";
         }
         message.setText(answer);
-        try {
-            bot.execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+        SendResponse send = new SendResponse();
+        send.send(message, bot);
     }
 }

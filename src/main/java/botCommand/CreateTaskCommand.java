@@ -1,6 +1,7 @@
 package botCommand;
 
 import TrekkerBot.EchoJavaTelegramBot;
+import TrekkerBot.SendResponse;
 import user.User;
 import user.UserRepository;
 import user.task.UserTask;
@@ -27,10 +28,7 @@ public class CreateTaskCommand implements BotCommand {
             userRepository.CreateUserTask(newUserTask);
             message.setText("Задача успешно добавлена");
         }
-        try {
-            bot.execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+        SendResponse send = new SendResponse();
+        send.send(message, bot);
     }
 }
