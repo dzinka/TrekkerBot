@@ -18,6 +18,7 @@ import java.util.List;
 public class CallbackTask implements BotCallback {
     @Override
     public void execute(Update update, EchoJavaTelegramBot bot, UserRepository userRepository) {
+        /*
         CallbackQuery callbackQuery = update.getCallbackQuery();
         String chatId = callbackQuery.getMessage().getChatId().toString();
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -45,5 +46,14 @@ public class CallbackTask implements BotCallback {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+         */
+        ArrayList<String> buttonLabels = new ArrayList<String>();
+        buttonLabels.add("action дедлайн");
+        buttonLabels.add("action статус");
+        buttonLabels.add("action выполняющий");
+        buttonLabels.add("action описание");
+        String messageText = "Выберите что хотите изменить";
+        SendCallback send = new SendCallback();
+        send.execute(update, bot, userRepository, buttonLabels, messageText);
     }
 }

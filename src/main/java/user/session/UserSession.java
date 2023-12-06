@@ -33,40 +33,10 @@ public class UserSession {
         return this.currentState;
     }
     public void handleMessage(Update update, UserRepository userRepository, EchoJavaTelegramBot bot) {
-        /*
         if (update.hasCallbackQuery() && currentState.equals("start")) {
             CallbackQuery callbackQuery = update.getCallbackQuery();
             String data = callbackQuery.getData();
-            if (data.equals("data")){
-                BotCallback botCallback = new CallbackData();
-                botCallback.execute(update, bot, userRepository);
-                this.currentState = "data";
-            }
-            else if (data.startsWith("task")){
-                callback.put("task", data);
-                BotCallback botCallback = new CallbackTask();
-                botCallback.execute(update, bot, userRepository);
-            }
-            else if (data.startsWith("action")){
-                callback.put("action", data);
-                BotCallback botCallback = new CallbackAction();
-                botCallback.execute(update, bot, userRepository);
-            }
-        }
-        else if (this.currentState.equals("data")){
-            String message = update.getMessage().getText();
-            User user = userRepository.GetUser(update.getMessage().getFrom().getId().toString());
-            Collection<UserTask> userTask = userRepository.GetUserCreatorTask(user);
-            for (UserTask element : userTask) {
-                if (element.GetDetails().equals(callback.get("task").substring(5))){
-                    element.ChangeDescription(message);
-                }
-            }
-        }*/
-        if (update.hasCallbackQuery() && currentState.equals("start")) {
-            CallbackQuery callbackQuery = update.getCallbackQuery();
-            String data = callbackQuery.getData();
-            if (data.equals("data")){
+            if (data.startsWith("data")){
                 SendMessage message = new SendMessage();
                 String chatId = callbackQuery.getMessage().getChatId().toString();
                 message.setChatId(chatId);

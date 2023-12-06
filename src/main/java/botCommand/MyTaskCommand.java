@@ -16,6 +16,7 @@ public class MyTaskCommand implements BotCommand {
     public void execute(Update update, EchoJavaTelegramBot bot, UserRepository userRepository) {
         String userId = update.getMessage().getFrom().getId().toString();
         User user = userRepository.GetUser(userId);
+        /*
         SendMessage message = new SendMessage();
         message.setChatId(user.GetChatId());
         Collection<UserTask> userTasks = userRepository.GetUserTask(user);
@@ -30,6 +31,8 @@ public class MyTaskCommand implements BotCommand {
         }
         message.setText(answer);
         SendResponse send = new SendResponse();
-        send.send(message, bot);
+        send.send(message, bot);*/
+        EditTaskCommand command = new EditTaskCommand();
+        command.execute(update, bot, userRepository);
     }
 }

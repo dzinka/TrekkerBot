@@ -1,6 +1,7 @@
 package botCommand;
 
 import TrekkerBot.EchoJavaTelegramBot;
+import callback.SendCallback;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -16,6 +17,7 @@ import java.util.List;
 
 public class EditTaskCommand implements BotCommand{
     public void execute(Update update, EchoJavaTelegramBot bot, UserRepository userRepository) {
+/*
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         ArrayList<String> buttonLabels = new ArrayList<String>();
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -48,5 +50,17 @@ public class EditTaskCommand implements BotCommand{
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+*/
+        ArrayList<String> buttonLabels = new ArrayList<String>();
+        User user = userRepository.GetUser(update.getMessage().getFrom().getId().toString());
+        Collection<UserTask> userTask = userRepository.GetUserCreatorTask(user);
+        for (UserTask element : userTask) {
+            buttonLabels.add("task " + element.GetDetails());
+        }
+        buttonLabels.add("task Вернуться назад");
+        String messageText = "Выберите задачу";
+        SendCallback send = new SendCallback();
+        send.execute(update, bot, userRepository, buttonLabels, messageText);
+
     }
 }

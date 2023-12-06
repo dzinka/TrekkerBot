@@ -46,17 +46,5 @@ public class EchoJavaTelegramBot extends TelegramLongPollingBot {
             String userId = update.getCallbackQuery().getFrom().getId().toString();
             userRepository.getUserSession(userId).handleMessage(update, userRepository, this);
         }
-}
-
-    private void sendResponse(String chatIdd, String text) {
-        SendMessage message = new SendMessage();
-        message.setChatId(chatIdd);
-        message.setText(text);
-
-        try {
-            execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
     }
 }

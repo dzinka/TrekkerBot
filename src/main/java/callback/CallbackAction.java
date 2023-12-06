@@ -15,6 +15,7 @@ import java.util.List;
 public class CallbackAction extends CallbackTask{
     @Override
     public void execute(Update update, EchoJavaTelegramBot bot, UserRepository userRepository) {
+        /*
         CallbackQuery callbackQuery = update.getCallbackQuery();
         String chatId = callbackQuery.getMessage().getChatId().toString();
         SendMessage message = new SendMessage();
@@ -38,6 +39,12 @@ public class CallbackAction extends CallbackTask{
             bot.execute(message);
         } catch (TelegramApiException e) {
             e.printStackTrace();
-        }
+        }*/
+        ArrayList<String> buttonLabels = new ArrayList<String>();
+        buttonLabels.add("data Ввести новые данные");
+        buttonLabels.add("task Вернуться назад");
+        String messageText = "Выберите действие";
+        SendCallback send = new SendCallback();
+        send.execute(update, bot, userRepository, buttonLabels, messageText);
     }
 }
