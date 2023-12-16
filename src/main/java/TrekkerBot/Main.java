@@ -1,5 +1,6 @@
 package TrekkerBot;
 
+import database.Database;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
@@ -24,6 +25,7 @@ public class Main {
         }
     }
     public static void main(String[] args) {
+        /*
         var config = readConfig("config.yml");
         String botName = config.get("bot_name").toString();
         String botToken = config.get("bot_token").toString();
@@ -35,6 +37,8 @@ public class Main {
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
-
+*/
+        Database b = new Database();
+        b.Stat("arsv", "88");
     }
 }

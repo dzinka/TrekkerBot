@@ -19,6 +19,7 @@ public class BotCommandHandler {
         commandMap.put("/create_task", new CreateTaskCommand());
         commandMap.put("/my_task", new MyTaskCommand());
         commandMap.put("/edit_task", new EditTaskCommand());
+        commandMap.put("/delete_task", new DeleteTaskCommand());
     }
 
     public void processCommand(Update update, EchoJavaTelegramBot bot, UserRepository userRepository) {

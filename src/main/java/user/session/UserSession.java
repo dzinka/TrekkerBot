@@ -55,6 +55,21 @@ public class UserSession {
                 BotCallback botCallback = new CallbackAction();
                 botCallback.execute(update, bot, userRepository);
             }
+            else if (data.startsWith("seeTask")){
+                String identifier = data.split(" ")[1];
+                User user = userRepository.GetUser(update.getCallbackQuery().getFrom().getId().toString());
+                Collection<UserTask> userTask = userRepository.GetUserTask(user);
+                for (UserTask element : userTask) {
+                    if (element.GetIdentifier().equals(identifier)){
+                        SendMessage message = new SendMessage();
+                        String chatId = callbackQuery.getMessage().getChatId().toString();
+                        message.setChatId(chatId);
+                        message.setText(element.GetAllDetails());
+                        SendResponse send = new SendResponse();
+                        send.send(message, bot);
+                    }
+                }
+            }
         }
 
         else if (update.hasMessage() && update.getMessage().hasText() && currentState.equals("data")) {
@@ -62,8 +77,13 @@ public class UserSession {
             User user = userRepository.GetUser(update.getMessage().getFrom().getId().toString());
             Collection<UserTask> userTask = userRepository.GetUserCreatorTask(user);
             for (UserTask element : userTask) {
-                if (element.GetDetails().equals(callback.get("task").substring(5))){
-                    element.ChangeDescription(message);
+                if (element.GetIdentifier().equals(callback.get("task").substring(5))){
+                    if (callback.get("action").equals("action описание")){
+                        element.ChangeDescription(message);
+                    }
+                    if (callback.get("action").equals("action дедлайн")){
+                        element.ChangeDedline(message);
+                    }
                 }
             }
             currentState = "start";
